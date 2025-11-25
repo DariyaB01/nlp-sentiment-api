@@ -1,56 +1,58 @@
-# 🚀 NLP Sentiment Analysis API  
+# NLP Sentiment Analysis API  
 ### FastAPI · Hugging Face Transformers · Docker · Kubernetes (Minikube)
 
 This project implements a **production-style NLP inference service** for sentiment analysis using a pre-trained **DistilBERT** model from Hugging Face.  
 It demonstrates the end-to-end lifecycle of deploying an NLP model, including:
 
-- ⚡ FastAPI backend  
-- 🤗 HuggingFace Transformers  
-- 🐳 Docker containerization  
-- ☸️ Kubernetes deployment via Minikube  
-- 📦 Local development environment  
-- 🧪 Interactive Swagger documentation  
+- FastAPI backend  
+- HuggingFace Transformers  
+- Docker containerization  
+- Kubernetes deployment via Minikube  
+- Clean local development environment  
+- Interactive Swagger documentation  
 
-Perfect for demonstrating **NLP, MLOps, and deployment skills**.
-
----
-
-# 📌 Features
-
-- 🔍 **Sentiment Classification** (Positive / Negative)  
-- 🚀 **FastAPI** REST endpoint for inference  
-- 📘 **Swagger UI** automatically generated at `/docs`  
-- 🐳 **Dockerized** for reproducible environments  
-- ☸️ **Kubernetes Deployment** using Minikube  
-- 💡 Clean, extensible project structure  
+Perfect for demonstrating **NLP, MLOps, and deployment engineering skills**.
 
 ---
 
-# 🧠 Technologies Used
+##  Features
+
+-  **Sentiment Classification** (Positive / Negative)  
+-  FastAPI REST endpoint for inference  
+-  Swagger UI automatically generated at `/docs`  
+-  Reproducible Dockerized environment  
+-  Kubernetes Deployment using Minikube  
+-  Clean, extensible architecture  
+
+---
+
+##  Technologies Used
 
 | Tool | Purpose |
 |------|---------|
 | **FastAPI** | Web API Framework |
-| **Transformers (Hugging Face)** | Pretrained NLP Model |
+| **HuggingFace Transformers** | Pretrained NLP Model |
 | **PyTorch** | Model backend |
 | **Docker** | Containerization |
-| **Kubernetes + Minikube** | Local deployment & orchestration |
+| **Kubernetes + Minikube** | Deployment & Orchestration |
 | **Uvicorn** | ASGI server |
-| **curl / Swagger UI** | Testing API |
+| **Swagger UI** | API Docs |
 
 ---
 
-# Project Structure
+##  Project Structure
+
+
 
 nlp-sentiment-api/
 │
-├── main.py # FastAPI application with sentiment analysis
+├── main.py # FastAPI application (DistilBERT inference)
 ├── requirements.txt # Dependencies
-├── Dockerfile # Containerization
+├── Dockerfile # Docker build config
 ├── .dockerignore
-├── k8s/
-│ ├── deployment.yaml # Kubernetes Deployment
-│ └── service.yaml # Kubernetes Service
+├── k8s/ # Kubernetes manifests
+│ ├── deployment.yaml
+│ └── service.yaml
 └── README.md
 
 
@@ -58,29 +60,66 @@ nlp-sentiment-api/
 
 # Local Development
 
-### 1. Create virtual environment
+##  1. Create virtual environment
 ```bash
 python3 -m venv venv
 source venv/bin/activate
 
+ 2. Install dependencies
 pip install -r requirements.txt
+
+ 3. Run API locally
 python -m uvicorn main:app --reload
-Open Swagger documentation:
-http://127.0.0.1:8000/docs
 
-### 2. Docker deployment
+
+Open Swagger UI:
+ http://127.0.0.1:8000/docs
+
+ Docker Deployment
+ Build image
 docker build -t nlp-sentiment-api .
-docker run -p 8000:8000 nlp-sentiment-api
-Open the API:
-http://127.0.0.1:8000/docs
 
-### 3.Kubernetes deployment
+ Run container
+docker run -p 8000:8000 nlp-sentiment-api
+
+
+Open the API:
+ http://127.0.0.1:8000/docs
+
+ Kubernetes Deployment (Minikube)
+ 1. Start Minikube
 minikube start
+
+ 2. Build Docker image inside Minikube
 eval $(minikube docker-env)
 docker build -t nlp-sentiment-api:latest .
+
+ 3. Apply Kubernetes manifests
 kubectl apply -f k8s/deployment.yaml
 kubectl apply -f k8s/service.yaml
+
+ 4. Access the service
 minikube service sentiment-api-service --url
 
 
+Add /docs to the URL to open interactive API documentation.
+
+Future Improvements
+
+GitHub Actions CI/CD pipeline
+
+Prometheus metrics + Grafana dashboard
+
+Multilingual sentiment analysis
+
+Unit testing (pytest)
+
+Cloud deployment (AWS / GCP / Azure)
+
+Author
+
+Dariya Baigereyeva
+NLP & Data Analyst | AI Practitioner
+
+GitHub: https://github.com/DariyaB01
 
