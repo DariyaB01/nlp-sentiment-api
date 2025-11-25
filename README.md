@@ -11,8 +11,6 @@ It demonstrates the end-to-end lifecycle of deploying an NLP model, including:
 - Clean local development environment  
 - Interactive Swagger documentation  
 
-Perfect for demonstrating **NLP, MLOps, and deployment engineering skills**.
-
 ---
 
 ##  Features
