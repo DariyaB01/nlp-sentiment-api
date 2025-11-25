@@ -80,27 +80,36 @@ docker build -t nlp-sentiment-api .
  Run container
 docker run -p 8000:8000 nlp-sentiment-api
 
-
 Open the API:
  http://127.0.0.1:8000/docs
 
- Kubernetes Deployment (Minikube)
- 1. Start Minikube
+Kubernetes Deployment (Minikube)
+Start Minikube
 minikube start
 
- 2. Build Docker image inside Minikube
+Build Docker image inside Minikube
 eval $(minikube docker-env)
 docker build -t nlp-sentiment-api:latest .
 
- 3. Apply Kubernetes manifests
+Apply Kubernetes manifests
 kubectl apply -f k8s/deployment.yaml
 kubectl apply -f k8s/service.yaml
 
- 4. Access the service
+Access the service
 minikube service sentiment-api-service --url
 
+Then open the returned URL + /docs for interactive API documentation.
 
-Add /docs to the URL to open interactive API documentation.
+Example API Requests
+Positive Example
+curl -X POST "<YOUR_URL>/predict" \
+  -H "Content-Type: application/json" \
+  -d '{"text": "I love this project!"}'
+
+Negative Example
+curl -X POST "<YOUR_URL>/predict" \
+  -H "Content-Type: application/json" \
+  -d '{"text": "This is terrible and disappointing."}'
 
 Future Improvements
 
