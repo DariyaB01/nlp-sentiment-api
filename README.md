@@ -98,62 +98,62 @@ kubectl apply -f k8s/service.yaml
 Access the service
 minikube service sentiment-api-service --url
 
-Example Usage
+## Example Usage
 
-Below are two example requests and responses for the /predict endpoint:
-one with a clearly positive sentence and one with a clearly negative sentence.
+Below are two example requests and responses for the `/predict` endpoint —  
+one with a positive sentiment and one with a negative sentiment.
 
-<table> <tr> <td width="50%" valign="top">
-  <h3>Positive Sentiment Example</h3>
-  <p>Send a POST request to <code>/predict</code> with a positive text:</p>
+<table>
+  <tr>
+    <td width="50%" valign="top">
 
-  <pre><code>curl -X POST "http://localhost:8000/predict" \
+      <h3>Positive Sentiment Example</h3>
+      <p>Send a POST request to <code>/predict</code> with a positive sentence:</p>
 
-
--H "Content-Type: application/json"
--d '{"text": "I really love this project, it works great!"}'
+      <pre><code class="language-bash">
+curl -X POST "http://localhost:8000/predict" \
+  -H "Content-Type: application/json" \
+  -d '{"text": "I really love this project, it works great!"}'
 </code></pre>
 
-  <h4>Response</h4>
-  <pre><code>{
-
-
-"input_text": "I really love this project, it works great!",
-"prediction": {
-"label": "POSITIVE",
-"score": 0.99
-}
-}
-</code></pre>
-
-</td>
-<td width="50%" valign="top">
-
-  <h3>Negative Sentiment Example</h3>
-  <p>Send a POST request with a negative text:</p>
-
-  <pre><code>curl -X POST "http://localhost:8000/predict" \
-
-
--H "Content-Type: application/json"
--d '{"text": "This result is really disappointing and unhelpful."}'
-</code></pre>
-
-  <h4>Response</h4>
-  <pre><code>{
-
-
-"input_text": "This result is really disappointing and unhelpful.",
-"prediction": {
-"label": "NEGATIVE",
-"score": 0.99
-}
+      <h4>Response</h4>
+      <pre><code class="language-json">
+{
+  "input_text": "I really love this project, it works great!",
+  "prediction": {
+    "label": "POSITIVE",
+    "score": 0.99
+  }
 }
 </code></pre>
 
-</td>
+    </td>
 
-</tr> </table>
+    <td width="50%" valign="top">
+
+      <h3>Negative Sentiment Example</h3>
+      <p>Send a POST request to <code>/predict</code> with a negative sentence:</p>
+
+      <pre><code class="language-bash">
+curl -X POST "http://localhost:8000/predict" \
+  -H "Content-Type: application/json" \
+  -d '{"text": "This result is really disappointing and unhelpful."}'
+</code></pre>
+
+      <h4>Response</h4>
+      <pre><code class="language-json">
+{
+  "input_text": "This result is really disappointing and unhelpful.",
+  "prediction": {
+    "label": "NEGATIVE",
+    "score": 0.99
+  }
+}
+</code></pre>
+
+    </td>
+  </tr>
+</table>
 
 Some Future Improvements
 GitHub Actions CI/CD pipeline
