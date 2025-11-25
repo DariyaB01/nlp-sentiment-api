@@ -52,7 +52,6 @@ nlp-sentiment-api/
 
 ### • Source Code: [Visit Repo](https://github.com/DariyaB01/nlp-sentiment-api)
 
-
 NLP & Data Analyst | AI Practitioner
 
 GitHub: https://github.com/DariyaB01
