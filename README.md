@@ -1,170 +1,58 @@
 # NLP Sentiment Analysis API  
 ### FastAPI · Hugging Face Transformers · Docker · Kubernetes (Minikube)
 
-This project implements a **production-style NLP inference service** for sentiment analysis using a pre-trained **DistilBERT** model from Hugging Face.  
-It demonstrates the end-to-end lifecycle of deploying an NLP model, including:
+This repository contains a **sentiment analysis API** built with FastAPI and a pre-trained **DistilBERT** model from Hugging Face.  
+The goal of the project is to show how an NLP model can be taken from experimentation to deployment using:
 
-- FastAPI backend  
-- HuggingFace Transformers  
-- Docker containerization  
-- Kubernetes deployment via Minikube  
-- Clean local development environment  
-- Interactive Swagger documentation  
+- a lightweight web API (FastAPI)  
+- transformer-based NLP models (Hugging Face)  
+- Docker containers  
+- Kubernetes (Minikube) for orchestration  
 
 ---
 
 ##  Features
 
--  **Sentiment Classification** (Positive / Negative)  
--  FastAPI REST endpoint for inference  
--  Swagger UI automatically generated at `/docs`  
--  Reproducible Dockerized environment  
--  Kubernetes Deployment using Minikube  
--  Clean, extensible architecture  
+- Binary **sentiment classification**: `POSITIVE` / `NEGATIVE`  
+- FastAPI prediction endpoint at `/predict`  
+- Interactive API docs at `/docs` (Swagger UI)  
+- Reproducible Docker image for the service  
+- Kubernetes Deployment & Service manifests  
+- Simple structure that can be extended with more NLP tasks  
 
 ---
 
-##  Technologies Used
+## Technologies Used
 
-| Tool | Purpose |
-|------|---------|
-| **FastAPI** | Web API Framework |
-| **HuggingFace Transformers** | Pretrained NLP Model |
-| **PyTorch** | Model backend |
-| **Docker** | Containerization |
-| **Kubernetes + Minikube** | Deployment & Orchestration |
-| **Uvicorn** | ASGI server |
-| **Swagger UI** | API Docs |
+![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
+![Kubernetes](https://img.shields.io/badge/Kubernetes-326CE5?style=for-the-badge&logo=kubernetes&logoColor=white)
+![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white)
+![Uvicorn](https://img.shields.io/badge/Uvicorn-222222?style=for-the-badge&logo=uvicorn&logoColor=white)
+![Transformers](https://img.shields.io/badge/Transformers-FFD21E?style=for-the-badge&logo=huggingface&logoColor=black)
+![PyTorch](https://img.shields.io/badge/PyTorch-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white)
+![Minikube](https://img.shields.io/badge/Minikube-326CE5?style=for-the-badge&logo=kubernetes&logoColor=white)
+![GitHub Actions](https://img.shields.io/badge/GitHub%20Actions-2088FF?style=for-the-badge&logo=githubactions&logoColor=white)
+![Prometheus](https://img.shields.io/badge/Prometheus-E6522C?style=for-the-badge&logo=prometheus&logoColor=white)
 
 ---
 
-##  Project Structure
+## Project Structure
 
-
-
+```text
 nlp-sentiment-api/
 │
-├── main.py # FastAPI application (DistilBERT inference)
-├── requirements.txt # Dependencies
-├── Dockerfile # Docker build config
+├── main.py                # FastAPI application (DistilBERT inference)
+├── requirements.txt       # Python dependencies
+├── Dockerfile             # Docker build config
 ├── .dockerignore
-├── k8s/ # Kubernetes manifests
-│ ├── deployment.yaml
-│ └── service.yaml
+├── k8s/                   # Kubernetes manifests
+│   ├── deployment.yaml
+│   └── service.yaml
 └── README.md
 
-
----
-
-# Local Development
-
-##  1. Create virtual environment
-```bash
-python3 -m venv venv
-source venv/bin/activate
-
- 2. Install dependencies
-pip install -r requirements.txt
-
- 3. Run API locally
-python -m uvicorn main:app --reload
+### • Source Code: [Visit Repo](https://github.com/DariyaB01/nlp-sentiment-api)
 
 
-Open Swagger UI:
- http://127.0.0.1:8000/docs
-
- Docker Deployment
- Build image
-docker build -t nlp-sentiment-api .
-
- Run container
-docker run -p 8000:8000 nlp-sentiment-api
-
-Open the API:
- http://127.0.0.1:8000/docs
-
-Kubernetes Deployment (Minikube)
-Start Minikube
-minikube start
-
-Build Docker image inside Minikube
-eval $(minikube docker-env)
-docker build -t nlp-sentiment-api:latest .
-
-Apply Kubernetes manifests
-kubectl apply -f k8s/deployment.yaml
-kubectl apply -f k8s/service.yaml
-
-Access the service
-minikube service sentiment-api-service --url
-
-## Example Usage
-
-Below are two example requests and responses for the `/predict` endpoint —  
-one with a positive sentiment and one with a negative sentiment.
-
-<table>
-  <tr>
-    <td width="50%" valign="top">
-
-      <h3>Positive Sentiment Example</h3>
-      <p>Send a POST request to <code>/predict</code> with a positive sentence:</p>
-
-      <pre><code class="language-bash">
-curl -X POST "http://localhost:8000/predict" \
-  -H "Content-Type: application/json" \
-  -d '{"text": "I really love this project, it works great!"}'
-</code></pre>
-
-      <h4>Response</h4>
-      <pre><code class="language-json">
-{
-  "input_text": "I really love this project, it works great!",
-  "prediction": {
-    "label": "POSITIVE",
-    "score": 0.99
-  }
-}
-</code></pre>
-
-    </td>
-
-    <td width="50%" valign="top">
-
-      <h3>Negative Sentiment Example</h3>
-      <p>Send a POST request to <code>/predict</code> with a negative sentence:</p>
-
-      <pre><code class="language-bash">
-curl -X POST "http://localhost:8000/predict" \
-  -H "Content-Type: application/json" \
-  -d '{"text": "This result is really disappointing and unhelpful."}'
-</code></pre>
-
-      <h4>Response</h4>
-      <pre><code class="language-json">
-{
-  "input_text": "This result is really disappointing and unhelpful.",
-  "prediction": {
-    "label": "NEGATIVE",
-    "score": 0.99
-  }
-}
-</code></pre>
-
-    </td>
-  </tr>
-</table>
-
-Some Future Improvements
-GitHub Actions CI/CD pipeline
-Prometheus metrics + Grafana dashboard
-Multilingual sentiment analysis
-Unit testing (pytest)
-Cloud deployment (AWS / GCP / Azure)
-
-Author
-
-Dariya Baigereyeva
 NLP & Data Analyst | AI Practitioner
 
 GitHub: https://github.com/DariyaB01
